@@ -1,5 +1,6 @@
 from mysql.connector.connection_cext import CMySQLConnection
 from mysql.connector import connect
+from .i_table import ITable
 
 
 class Database:
@@ -10,10 +11,10 @@ class Database:
         self._create_database_if_not_exist()
         self._connect_to_the_database()
 
-    def _connect_to_the_database(self):
+    def _connect_to_the_database(self) -> None:
         self.conn.database = self._database_name
 
-    def _create_database_if_not_exist(self):
+    def _create_database_if_not_exist(self) -> None:
         cursor = self.conn.cursor()
         cursor.execute("SHOW DATABASES")
 
@@ -21,3 +22,7 @@ class Database:
 
         if (self._database_name, ) not in databases:
             cursor.execute(f"CREATE DATABASE {self._database_name}") 
+
+    def create(self, table:ITable) -> None:
+        cursor = self.conn.cursor()
+        cursor.execute(table.get_create_query())
