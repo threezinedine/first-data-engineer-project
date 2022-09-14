@@ -4,10 +4,12 @@ from src.main.cores import Table
 
 
 class TableTest(unittest.TestCase):
-    def test_get_create_query_method(self):
-        table = Table(name="testing_table", columns=[])
+    table_name = "testing_table"
+    def setUp(self):
+        self.table = Table(name=self.table_name, columns=[])
 
-        query = table.get_create_query()
+    def test_get_create_query_method(self):
+        query = self.table.get_create_query()
 
         assert query == f"CREATE TABLE testing_table ()"
 
