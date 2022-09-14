@@ -42,4 +42,3 @@ class TableTest(unittest.TestCase):
         query = self.table.get_create_query()
 
         assert query == f"CREATE TABLE testing_table (id int, name varchar(23))"
-

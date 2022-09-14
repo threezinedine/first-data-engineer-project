@@ -22,7 +22,7 @@ def given_a_created_database_obj(context, database_name):
 def given_a_table_obj_with_a_column(context, table_name, column_name, column_type):
     context.table_name = table_name
     context.table = Table(name=table_name, columns=[
-            IntColumn(name=column_name, primary=True)
+            IntColumn(name=column_name)
         ])
 
 @when("the database creates the table")
