@@ -7,4 +7,4 @@ class Table(ITable):
         self._columns = columns
 
     def get_create_query(self):
-        return f"CREATE TABLE {self._name} (id int)"
+        return f"CREATE TABLE {self._name} ()"
