@@ -7,4 +7,6 @@ class Table(ITable):
         self._columns = columns
 
     def get_create_query(self):
-        return f"CREATE TABLE {self._name} ()"
+        column_definitions = [column.get_definition() 
+                    for column in self._columns]
+        return f"CREATE TABLE {self._name} ({', '.join(column_definitions)})"
