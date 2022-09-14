@@ -1,6 +1,7 @@
 from behave import given, when, then
 from mysql.connector import connect
-from src.main.cores import Database
+from src.main.cores import Database, Table
+from src.main.models import IntColumn
 
 
 
@@ -16,17 +17,15 @@ def given_a_database_is_created(context, database_name):
 
 @given("create a database object named \"{database_name}\"")
 def given_a_created_database_obj(context, database_name):
+    context.database_name = database_name
     context.database = Database(context.conn, database_name)
 
-@given("create a table named \"{table_name}\" object with \"{column_name}\" column")
-def given_a_table_obj_with_a_column(context, table_name, column_name, column_type):
+@when("create a table named \"{table_name}\" object with \"{column_name}\" column")
+def then_a_table_obj_with_a_column(context, table_name, column_name):
     context.table_name = table_name
     context.table = Table(name=table_name, columns=[
             IntColumn(name=column_name)
         ])
-
-@when("the database creates the table")
-def when_the_database_creates_the_table(context):
     context.database.create(context.table)
 
 @when("create the database named \"{database_name}\"")
